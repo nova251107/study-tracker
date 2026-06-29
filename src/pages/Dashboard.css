@@ -1,0 +1,66 @@
+.dashboard-header {
+  margin-bottom: 2rem;
+}
+
+.stats-grid {
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-icon.streak {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--accent-warning);
+}
+
+.stat-icon.hours {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--accent-primary);
+}
+
+.stat-icon.dsa {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent-success);
+}
+
+.stat-icon.web {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--accent-danger);
+}
+
+.stat-info h3 {
+  font-size: 1.5rem;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.stat-info p {
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.chart-container {
+  margin-top: 1.5rem;
+}
+
+.no-activity {
+  margin-top: 1.5rem;
+  text-align: center;
+  padding: 2rem;
+  background: var(--bg-dark);
+  border-radius: 8px;
+  border: 1px dashed var(--border-color);
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "w1",
+    "name": "HTML",
+    "completed": false
+  },
+  {
+    "id": "w2",
+    "name": "CSS",
+    "completed": false
+  },
+  {
+    "id": "w3",
+    "name": "Git + GitHub",
+    "completed": false
+  },
+  {
+    "id": "w4",
+    "name": "JavaScript (Core + DOM + ES6)",
+    "completed": false
+  },
+  {
+    "id": "w5",
+    "name": "TypeScript ⭐",
+    "completed": false
+  },
+  {
+    "id": "w6",
+    "name": "React",
+    "completed": false
+  },
+  {
+    "id": "w7",
+    "name": "Next.js",
+    "completed": false
+  },
+  {
+    "id": "w8",
+    "name": "Tailwind CSS",
+    "completed": false
+  },
+  {
+    "id": "w9",
+    "name": "Node.js",
+    "completed": false
+  },
+  {
+    "id": "w10",
+    "name": "Express.js",
+    "completed": false
+  },
+  {
+    "id": "w11",
+    "name": "REST API",
+    "completed": false
+  },
+  {
+    "id": "w12",
+    "name": "Authentication (JWT/OAuth)",
+    "completed": false
+  },
+  {
+    "id": "w13",
+    "name": "Database (MongoDB / PostgreSQL)",
+    "completed": false
+  },
+  {
+    "id": "w14",
+    "name": "ORM (Prisma / Mongoose)",
+    "completed": false
+  },
+  {
+    "id": "w15",
+    "name": "Docker",
+    "completed": false
+  },
+  {
+    "id": "w16",
+    "name": "Deployment (Vercel / VPS / Cloud)",
+    "completed": false
+  },
+  {
+    "id": "w17",
+    "name": "System Design",
+    "completed": false
+  },
+  {
+    "id": "w18",
+    "name": "Projects",
+    "completed": false
+  }
+]

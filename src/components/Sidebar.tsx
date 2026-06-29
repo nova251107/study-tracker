@@ -1,0 +1,45 @@
+
+import { NavLink } from 'react-router-dom';
+import { LayoutDashboard, Code2, MonitorPlay, BarChart3, Settings, CheckSquare } from 'lucide-react';
+import './Sidebar.css';
+
+const Sidebar = () => {
+  const links = [
+    { to: '/', icon: <LayoutDashboard size={20} />, label: 'Dashboard' },
+    { to: '/tasks', icon: <CheckSquare size={20} />, label: 'Tasks' },
+    { to: '/dsa', icon: <Code2 size={20} />, label: 'DSA Tracker' },
+    { to: '/web', icon: <MonitorPlay size={20} />, label: 'Web Dev' },
+    { to: '/analytics', icon: <BarChart3 size={20} />, label: 'Analytics' },
+    { to: '/settings', icon: <Settings size={20} />, label: 'Settings' },
+  ];
+
+  return (
+    <aside className="sidebar">
+      <div className="sidebar-header">
+        <div className="logo">
+          <div className="logo-icon"></div>
+          <h2>StudyTracker</h2>
+        </div>
+      </div>
+      
+      <nav className="sidebar-nav">
+        {links.map((link) => (
+          <NavLink
+            key={link.to}
+            to={link.to}
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+          >
+            {link.icon}
+            <span>{link.label}</span>
+          </NavLink>
+        ))}
+      </nav>
+      
+      <div className="sidebar-footer">
+        <p>Premium Learning</p>
+      </div>
+    </aside>
+  );
+};
+
+export default Sidebar;

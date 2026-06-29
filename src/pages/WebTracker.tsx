@@ -1,0 +1,65 @@
+
+import { useGlobalContext } from '../context/GlobalContext';
+import { CheckSquare, Square } from 'lucide-react';
+import './WebTracker.css';
+
+const WebTracker = () => {
+  const { webData, toggleWebTopic } = useGlobalContext();
+
+  const total = webData.length;
+  const completed = webData.filter(t => t.completed).length;
+  const progress = total === 0 ? 0 : Math.round((completed / total) * 100);
+
+  return (
+    <div className="web-tracker">
+      <header className="page-header">
+        <div>
+          <h1>Web Development Roadmap</h1>
+          <p>Track your Full Stack Web Development journey</p>
+        </div>
+        <div className="progress-section">
+          <div className="progress-text">
+            <span>Overall Progress</span>
+            <span className="progress-percentage">{progress}% ({completed}/{total})</span>
+          </div>
+          <div className="progress-bg">
+            <div className="progress-fill web-fill" style={{ width: `${progress}%` }}></div>
+          </div>
+        </div>
+      </header>
+
+      <div className="roadmap-container glass-card animate-fade-in">
+        <ul className="roadmap-list">
+          {webData.map((topic, index) => (
+            <li 
+              key={topic.id} 
+              className={`roadmap-item ${topic.completed ? 'completed' : ''}`}
+              onClick={() => toggleWebTopic(topic.id)}
+            >
+              <div className="roadmap-line">
+                <div className="roadmap-dot"></div>
+                {index !== webData.length - 1 && <div className="roadmap-connector"></div>}
+              </div>
+              
+              <div className="roadmap-content">
+                <button className="check-btn">
+                  {topic.completed ? (
+                    <CheckSquare className="checked-icon web-icon" size={24} />
+                  ) : (
+                    <Square className="unchecked-icon" size={24} />
+                  )}
+                </button>
+                <div className="topic-info">
+                  <h3>{topic.name}</h3>
+                  <p>Step {index + 1} of {total}</p>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
+export default WebTracker;

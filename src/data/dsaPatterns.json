@@ -1,0 +1,660 @@
+[
+  {
+    "id": "c0",
+    "title": "1. Basics",
+    "patterns": [
+      {
+        "id": "p1",
+        "name": "Input / Output",
+        "completed": false
+      },
+      {
+        "id": "p2",
+        "name": "Time Complexity",
+        "completed": false
+      },
+      {
+        "id": "p3",
+        "name": "Space Complexity",
+        "completed": false
+      },
+      {
+        "id": "p4",
+        "name": "Dry Run",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "c1",
+    "title": "2. Arrays Patterns",
+    "patterns": [
+      {
+        "id": "p5",
+        "name": "Traversal",
+        "completed": false
+      },
+      {
+        "id": "p6",
+        "name": "Prefix Sum",
+        "completed": false
+      },
+      {
+        "id": "p7",
+        "name": "Suffix Sum",
+        "completed": false
+      },
+      {
+        "id": "p8",
+        "name": "Sliding Window",
+        "completed": false
+      },
+      {
+        "id": "p9",
+        "name": "Two Pointer",
+        "completed": false
+      },
+      {
+        "id": "p10",
+        "name": "Kadane",
+        "completed": false
+      },
+      {
+        "id": "p11",
+        "name": "Dutch National Flag",
+        "completed": false
+      },
+      {
+        "id": "p12",
+        "name": "Merge Intervals",
+        "completed": false
+      },
+      {
+        "id": "p13",
+        "name": "Cyclic Sort",
+        "completed": false
+      },
+      {
+        "id": "p14",
+        "name": "Difference Array",
+        "completed": false
+      },
+      {
+        "id": "p15",
+        "name": "Sum",
+        "completed": false
+      },
+      {
+        "id": "p16",
+        "name": "Max/Min",
+        "completed": false
+      },
+      {
+        "id": "p17",
+        "name": "Subarray",
+        "completed": false
+      },
+      {
+        "id": "p18",
+        "name": "Rotate",
+        "completed": false
+      },
+      {
+        "id": "p19",
+        "name": "Missing Number",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "c2",
+    "title": "3. Strings Patterns",
+    "patterns": [
+      {
+        "id": "p20",
+        "name": "Frequency Count",
+        "completed": false
+      },
+      {
+        "id": "p21",
+        "name": "Sliding Window",
+        "completed": false
+      },
+      {
+        "id": "p22",
+        "name": "Two Pointer",
+        "completed": false
+      },
+      {
+        "id": "p23",
+        "name": "Hashing",
+        "completed": false
+      },
+      {
+        "id": "p24",
+        "name": "Palindrome",
+        "completed": false
+      },
+      {
+        "id": "p25",
+        "name": "KMP",
+        "completed": false
+      },
+      {
+        "id": "p26",
+        "name": "Rabin Karp",
+        "completed": false
+      },
+      {
+        "id": "p27",
+        "name": "Z Algorithm",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "c3",
+    "title": "4. Recursion Patterns",
+    "patterns": [
+      {
+        "id": "p28",
+        "name": "Pick / Not Pick",
+        "completed": false
+      },
+      {
+        "id": "p29",
+        "name": "Backtracking",
+        "completed": false
+      },
+      {
+        "id": "p30",
+        "name": "Divide & Conquer",
+        "completed": false
+      },
+      {
+        "id": "p31",
+        "name": "Generate All",
+        "completed": false
+      },
+      {
+        "id": "p32",
+        "name": "Subsequence",
+        "completed": false
+      },
+      {
+        "id": "p33",
+        "name": "Permutation",
+        "completed": false
+      },
+      {
+        "id": "p34",
+        "name": "Combination",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "c4",
+    "title": "5. Sorting Patterns",
+    "patterns": [
+      {
+        "id": "p35",
+        "name": "Bubble",
+        "completed": false
+      },
+      {
+        "id": "p36",
+        "name": "Selection",
+        "completed": false
+      },
+      {
+        "id": "p37",
+        "name": "Insertion",
+        "completed": false
+      },
+      {
+        "id": "p38",
+        "name": "Merge",
+        "completed": false
+      },
+      {
+        "id": "p39",
+        "name": "Quick",
+        "completed": false
+      },
+      {
+        "id": "p40",
+        "name": "Heap",
+        "completed": false
+      },
+      {
+        "id": "p41",
+        "name": "Counting",
+        "completed": false
+      },
+      {
+        "id": "p42",
+        "name": "Radix",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "c5",
+    "title": "6. Binary Search Patterns ⭐",
+    "patterns": [
+      {
+        "id": "p43",
+        "name": "Classic Binary Search",
+        "completed": false
+      },
+      {
+        "id": "p44",
+        "name": "First/Last Occurrence",
+        "completed": false
+      },
+      {
+        "id": "p45",
+        "name": "Search on Answer",
+        "completed": false
+      },
+      {
+        "id": "p46",
+        "name": "Binary Search on Array",
+        "completed": false
+      },
+      {
+        "id": "p47",
+        "name": "Peak Element",
+        "completed": false
+      },
+      {
+        "id": "p48",
+        "name": "Rotated Array",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "c6",
+    "title": "7. Linked List Patterns",
+    "patterns": [
+      {
+        "id": "p49",
+        "name": "Fast Slow Pointer",
+        "completed": false
+      },
+      {
+        "id": "p50",
+        "name": "Reverse",
+        "completed": false
+      },
+      {
+        "id": "p51",
+        "name": "Merge",
+        "completed": false
+      },
+      {
+        "id": "p52",
+        "name": "Cycle Detection",
+        "completed": false
+      },
+      {
+        "id": "p53",
+        "name": "Dummy Node",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "c7",
+    "title": "8. Stack Patterns ⭐",
+    "patterns": [
+      {
+        "id": "p54",
+        "name": "Monotonic Stack",
+        "completed": false
+      },
+      {
+        "id": "p55",
+        "name": "Next Greater",
+        "completed": false
+      },
+      {
+        "id": "p56",
+        "name": "Previous Smaller",
+        "completed": false
+      },
+      {
+        "id": "p57",
+        "name": "Expression",
+        "completed": false
+      },
+      {
+        "id": "p58",
+        "name": "Histogram",
+        "completed": false
+      },
+      {
+        "id": "p59",
+        "name": "Min Stack",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "c8",
+    "title": "9. Queue / Deque Patterns",
+    "patterns": [
+      {
+        "id": "p60",
+        "name": "Sliding Window Maximum",
+        "completed": false
+      },
+      {
+        "id": "p61",
+        "name": "Circular Queue",
+        "completed": false
+      },
+      {
+        "id": "p62",
+        "name": "BFS Queue",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "c9",
+    "title": "10. Hashing Patterns",
+    "patterns": [
+      {
+        "id": "p63",
+        "name": "Frequency Map",
+        "completed": false
+      },
+      {
+        "id": "p64",
+        "name": "Pair Sum",
+        "completed": false
+      },
+      {
+        "id": "p65",
+        "name": "Prefix Hash",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "c10",
+    "title": "11. Trees Patterns ⭐⭐⭐",
+    "patterns": [
+      {
+        "id": "p66",
+        "name": "DFS",
+        "completed": false
+      },
+      {
+        "id": "p67",
+        "name": "BFS",
+        "completed": false
+      },
+      {
+        "id": "p68",
+        "name": "Traversal",
+        "completed": false
+      },
+      {
+        "id": "p69",
+        "name": "Diameter",
+        "completed": false
+      },
+      {
+        "id": "p70",
+        "name": "LCA",
+        "completed": false
+      },
+      {
+        "id": "p71",
+        "name": "Path Sum",
+        "completed": false
+      },
+      {
+        "id": "p72",
+        "name": "Balanced Tree",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "c11",
+    "title": "12. BST Patterns",
+    "patterns": [
+      {
+        "id": "p73",
+        "name": "Insert",
+        "completed": false
+      },
+      {
+        "id": "p74",
+        "name": "Delete",
+        "completed": false
+      },
+      {
+        "id": "p75",
+        "name": "Search",
+        "completed": false
+      },
+      {
+        "id": "p76",
+        "name": "Floor/Ceil",
+        "completed": false
+      },
+      {
+        "id": "p77",
+        "name": "Kth Smallest",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "c12",
+    "title": "13. Heap / Priority Queue",
+    "patterns": [
+      {
+        "id": "p78",
+        "name": "Top K",
+        "completed": false
+      },
+      {
+        "id": "p79",
+        "name": "K Largest",
+        "completed": false
+      },
+      {
+        "id": "p80",
+        "name": "Merge K",
+        "completed": false
+      },
+      {
+        "id": "p81",
+        "name": "Median",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "c13",
+    "title": "14. Graph Patterns ⭐⭐⭐",
+    "patterns": [
+      {
+        "id": "p82",
+        "name": "BFS",
+        "completed": false
+      },
+      {
+        "id": "p83",
+        "name": "DFS",
+        "completed": false
+      },
+      {
+        "id": "p84",
+        "name": "Topological Sort",
+        "completed": false
+      },
+      {
+        "id": "p85",
+        "name": "Cycle Detection",
+        "completed": false
+      },
+      {
+        "id": "p86",
+        "name": "Shortest Path",
+        "completed": false
+      },
+      {
+        "id": "p87",
+        "name": "Dijkstra",
+        "completed": false
+      },
+      {
+        "id": "p88",
+        "name": "MST",
+        "completed": false
+      },
+      {
+        "id": "p89",
+        "name": "Union Find",
+        "completed": false
+      },
+      {
+        "id": "p90",
+        "name": "Bipartite",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "c14",
+    "title": "15. Dynamic Programming ⭐⭐⭐⭐⭐",
+    "patterns": [
+      {
+        "id": "p91",
+        "name": "Memoization",
+        "completed": false
+      },
+      {
+        "id": "p92",
+        "name": "Tabulation",
+        "completed": false
+      },
+      {
+        "id": "p93",
+        "name": "1D DP",
+        "completed": false
+      },
+      {
+        "id": "p94",
+        "name": "2D DP",
+        "completed": false
+      },
+      {
+        "id": "p95",
+        "name": "Knapsack",
+        "completed": false
+      },
+      {
+        "id": "p96",
+        "name": "LIS",
+        "completed": false
+      },
+      {
+        "id": "p97",
+        "name": "LCS",
+        "completed": false
+      },
+      {
+        "id": "p98",
+        "name": "Partition",
+        "completed": false
+      },
+      {
+        "id": "p99",
+        "name": "DP on Trees",
+        "completed": false
+      },
+      {
+        "id": "p100",
+        "name": "DP on Graph",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "c15",
+    "title": "16. Greedy Patterns",
+    "patterns": [
+      {
+        "id": "p101",
+        "name": "Interval",
+        "completed": false
+      },
+      {
+        "id": "p102",
+        "name": "Scheduling",
+        "completed": false
+      },
+      {
+        "id": "p103",
+        "name": "Sorting Based",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "c16",
+    "title": "17. Trie",
+    "patterns": [
+      {
+        "id": "p104",
+        "name": "Insert",
+        "completed": false
+      },
+      {
+        "id": "p105",
+        "name": "Search",
+        "completed": false
+      },
+      {
+        "id": "p106",
+        "name": "Prefix",
+        "completed": false
+      }
+    ]
+  },
+  {
+    "id": "c17",
+    "title": "18. Segment Trees ⭐⭐⭐",
+    "patterns": [
+      {
+        "id": "p107",
+        "name": "Range Query",
+        "completed": false
+      },
+      {
+        "id": "p108",
+        "name": "Point Update",
+        "completed": false
+      },
+      {
+        "id": "p109",
+        "name": "Lazy Propagation",
+        "completed": false
+      },
+      {
+        "id": "p110",
+        "name": "Min/Max/Sum Query",
+        "completed": false
+      }
+    ]
+  }
+]
