@@ -2,12 +2,13 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "dummy_api_key",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "dummy_auth_domain",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "dummy_project_id",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "dummy_storage_bucket",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "dummy_messaging_sender_id",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "dummy_app_id"
+  apiKey: "AIzaSyDNoqJQqAuV6XJDlrNm7-VWtW5t4BNOOrU",
+  authDomain: "study-tracker-db.firebaseapp.com",
+  projectId: "study-tracker-db",
+  storageBucket: "study-tracker-db.firebasestorage.app",
+  messagingSenderId: "504821518987",
+  appId: "1:504821518987:web:1d9d716e2b4278d548fa8e",
+  measurementId: "G-1E54QBLEWQ"
 };
 
 const app = initializeApp(firebaseConfig);
