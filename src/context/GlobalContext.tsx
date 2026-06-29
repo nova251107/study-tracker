@@ -3,7 +3,7 @@ import dsaPatternsRaw from '../data/dsaPatterns.json';
 import webDevRoadmapRaw from '../data/webDevRoadmap.json';
 
 // Types
-import { User } from 'firebase/auth';
+import type { User } from 'firebase/auth';
 
 export interface Pattern {
   id: string;
