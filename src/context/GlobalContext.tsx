@@ -3,6 +3,8 @@ import dsaPatternsRaw from '../data/dsaPatterns.json';
 import webDevRoadmapRaw from '../data/webDevRoadmap.json';
 
 // Types
+import { User } from 'firebase/auth';
+
 export interface Pattern {
   id: string;
   name: string;
@@ -39,6 +41,8 @@ interface GlobalState {
   webData: WebTopic[];
   tasks: Task[];
   stats: Stats;
+  user: User | null;
+  authLoading: boolean;
 }
 
 interface GlobalContextType extends GlobalState {
@@ -50,6 +54,8 @@ interface GlobalContextType extends GlobalState {
   updateStats: (hours: number) => void;
   exportData: () => string;
   importData: (jsonData: string) => void;
+  setUser: (user: User | null) => void;
+  setAuthLoading: (loading: boolean) => void;
 }
 
 const initialState: GlobalState = {
@@ -59,8 +65,10 @@ const initialState: GlobalState = {
   stats: {
     totalHours: 0,
     streak: 0,
-    lastStudyDate: '',
+    lastStudyDate: ''
   },
+  user: null,
+  authLoading: true
 };
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
@@ -166,14 +174,37 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const importData = (jsonData: string) => {
     try {
       const parsed = JSON.parse(jsonData);
-      if (parsed.dsaData && parsed.webData && parsed.stats) {
-        setState(parsed);
-      }
+      setState({
+        ...state,
+        dsaData: parsed.dsaData || initialState.dsaData,
+        webData: parsed.webData || initialState.webData,
+        tasks: parsed.tasks || initialState.tasks,
+        stats: parsed.stats || initialState.stats
+      });
     } catch (e) {
-      console.error("Invalid import data", e);
-      alert("Invalid JSON format");
+      console.error('Failed to import data', e);
     }
   };
+
+  const setUser = (user: User | null) => {
+    setState(prev => ({ ...prev, user }));
+  };
+
+  const setAuthLoading = (loading: boolean) => {
+    setState(prev => ({ ...prev, authLoading: loading }));
+  };
+
+  useEffect(() => {
+    import('../config/firebase').then(({ auth }) => {
+      import('firebase/auth').then(({ onAuthStateChanged }) => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+          setUser(user);
+          setAuthLoading(false);
+        });
+        return () => unsubscribe();
+      });
+    });
+  }, []);
 
   return (
     <GlobalContext.Provider value={{
@@ -185,7 +216,9 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       deleteTask,
       updateStats,
       exportData,
-      importData
+      importData,
+      setUser,
+      setAuthLoading
     }}>
       {children}
     </GlobalContext.Provider>
