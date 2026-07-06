@@ -114,12 +114,25 @@ const DsaTracker = () => {
                       >
                         {pattern.completed ? <CheckCircle2 className="checked-icon" size={20} /> : <Circle className="unchecked-icon" size={20} />}
                       </button>
-                      <div className="pattern-content">
+                      <div
+                        className="pattern-content"
+                        onClick={() => {
+                          if (pattern.questions && pattern.questions.length > 0) {
+                            pattern.questions.forEach(q => window.open(q.url, '_blank'));
+                          }
+                        }}
+                        title={pattern.questions?.length ? `Open all ${pattern.questions.length} LC questions` : ''}
+                      >
                         <div className="pattern-name-row">
                           <span className="pattern-name">{pattern.name}</span>
                           {pattern.difficulty && (
                             <span className={`diff-badge diff-${pattern.difficulty.toLowerCase()}`}>
                               {pattern.difficulty}
+                            </span>
+                          )}
+                          {pattern.questions && pattern.questions.length > 1 && (
+                            <span className="lc-count" title={`${pattern.questions.length} questions`}>
+                              {pattern.questions.length} LC
                             </span>
                           )}
                           {pattern.completed && pattern.lastReviewed && (
