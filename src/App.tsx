@@ -18,8 +18,11 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
+import { ErrorBoundary } from './components/ErrorBoundary';
+
 function App() {
   return (
+    <ErrorBoundary>
     <GlobalProvider>
       <HashRouter>
         <Routes>
@@ -35,6 +38,7 @@ function App() {
         </Routes>
       </HashRouter>
     </GlobalProvider>
+    </ErrorBoundary>
   );
 }
 

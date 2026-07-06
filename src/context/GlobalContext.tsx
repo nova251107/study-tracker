@@ -1,9 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import dsaPatternsRaw from '../data/dsaPatterns.json';
 import webDevRoadmapRaw from '../data/webDevRoadmap.json';
-
-// Types
-import type { User } from 'firebase/auth';
+import { auth } from '../config/firebase';
+import { onAuthStateChanged, type User } from 'firebase/auth';
 
 export interface Pattern {
   id: string;
@@ -27,6 +26,7 @@ export interface Stats {
   totalHours: number;
   streak: number;
   lastStudyDate: string;
+  weeklyActivity: Record<string, number>;
 }
 
 export interface Task {
@@ -36,16 +36,20 @@ export interface Task {
   completed: boolean;
 }
 
-interface GlobalState {
+interface PersistedState {
+  dsaData: PatternCategory[];
+  webData: WebTopic[];
+  tasks: Task[];
+  stats: Stats;
+}
+
+interface GlobalContextType {
   dsaData: PatternCategory[];
   webData: WebTopic[];
   tasks: Task[];
   stats: Stats;
   user: User | null;
   authLoading: boolean;
-}
-
-interface GlobalContextType extends GlobalState {
   toggleDsaPattern: (categoryId: string, patternId: string) => void;
   toggleWebTopic: (topicId: string) => void;
   addTask: (task: Omit<Task, 'id' | 'completed'>) => void;
@@ -54,49 +58,74 @@ interface GlobalContextType extends GlobalState {
   updateStats: (hours: number) => void;
   exportData: () => string;
   importData: (jsonData: string) => void;
-  setUser: (user: User | null) => void;
-  setAuthLoading: (loading: boolean) => void;
 }
 
-const initialState: GlobalState = {
+const defaultPersisted: PersistedState = {
   dsaData: dsaPatternsRaw as PatternCategory[],
   webData: webDevRoadmapRaw as WebTopic[],
   tasks: [],
   stats: {
     totalHours: 0,
     streak: 0,
-    lastStudyDate: ''
-  },
-  user: null,
-  authLoading: true
+    lastStudyDate: '',
+    weeklyActivity: {}
+  }
 };
+
+const STORAGE_KEY = 'studyTrackerData';
+
+function loadPersistedState(): PersistedState {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      return {
+        dsaData: parsed.dsaData || defaultPersisted.dsaData,
+        webData: parsed.webData || defaultPersisted.webData,
+        tasks: parsed.tasks || defaultPersisted.tasks,
+        stats: parsed.stats || defaultPersisted.stats
+      };
+    }
+  } catch (e) {
+    console.error('Failed to load localStorage', e);
+  }
+  return defaultPersisted;
+}
+
+function savePersistedState(state: PersistedState): void {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch (e) {
+    console.error('Failed to save to localStorage', e);
+  }
+}
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
 
 export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [state, setState] = useState<GlobalState>(() => {
-    const saved = localStorage.getItem('studyTrackerData');
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {
-        console.error("Failed to parse local storage", e);
-      }
-    }
-    return initialState;
-  });
+  const [persisted, setPersisted] = useState<PersistedState>(loadPersistedState);
+  const [user, setUser] = useState<User | null>(null);
+  const [authLoading, setAuthLoading] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem('studyTrackerData', JSON.stringify(state));
-  }, [state]);
+    savePersistedState(persisted);
+  }, [persisted]);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      setUser(firebaseUser);
+      setAuthLoading(false);
+    });
+    return () => unsubscribe();
+  }, []);
 
   const toggleDsaPattern = (categoryId: string, patternId: string) => {
-    setState(prev => {
+    setPersisted(prev => {
       const newData = prev.dsaData.map(cat => {
         if (cat.id === categoryId) {
           return {
             ...cat,
-            patterns: cat.patterns.map(p => 
+            patterns: cat.patterns.map(p =>
               p.id === patternId ? { ...p, completed: !p.completed } : p
             )
           };
@@ -108,45 +137,45 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   };
 
   const toggleWebTopic = (topicId: string) => {
-    setState(prev => ({
+    setPersisted(prev => ({
       ...prev,
-      webData: prev.webData.map(topic => 
+      webData: prev.webData.map(topic =>
         topic.id === topicId ? { ...topic, completed: !topic.completed } : topic
       )
     }));
   };
 
   const addTask = (task: Omit<Task, 'id' | 'completed'>) => {
-    setState(prev => ({
+    setPersisted(prev => ({
       ...prev,
       tasks: [...prev.tasks, { ...task, id: Date.now().toString(), completed: false }]
     }));
   };
 
   const toggleTask = (taskId: string) => {
-    setState(prev => ({
+    setPersisted(prev => ({
       ...prev,
       tasks: prev.tasks.map(t => t.id === taskId ? { ...t, completed: !t.completed } : t)
     }));
   };
 
   const deleteTask = (taskId: string) => {
-    setState(prev => ({
+    setPersisted(prev => ({
       ...prev,
       tasks: prev.tasks.filter(t => t.id !== taskId)
     }));
   };
 
   const updateStats = (hours: number) => {
-    setState(prev => {
+    setPersisted(prev => {
       const today = new Date().toISOString().split('T')[0];
       let newStreak = prev.stats.streak;
-      
+
       if (prev.stats.lastStudyDate) {
         const lastDate = new Date(prev.stats.lastStudyDate);
         const currDate = new Date(today);
         const diffDays = Math.floor((currDate.getTime() - lastDate.getTime()) / (1000 * 3600 * 24));
-        
+
         if (diffDays === 1) {
           newStreak += 1;
         } else if (diffDays > 1) {
@@ -156,59 +185,51 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         newStreak = 1;
       }
 
+      const weeklyActivity = { ...prev.stats.weeklyActivity };
+      weeklyActivity[today] = (weeklyActivity[today] || 0) + hours;
+
       return {
         ...prev,
         stats: {
           totalHours: prev.stats.totalHours + hours,
           streak: newStreak,
-          lastStudyDate: today
+          lastStudyDate: today,
+          weeklyActivity
         }
       };
     });
   };
 
   const exportData = () => {
-    return JSON.stringify(state, null, 2);
+    return JSON.stringify(persisted, null, 2);
   };
 
   const importData = (jsonData: string) => {
     try {
       const parsed = JSON.parse(jsonData);
-      setState({
-        ...state,
-        dsaData: parsed.dsaData || initialState.dsaData,
-        webData: parsed.webData || initialState.webData,
-        tasks: parsed.tasks || initialState.tasks,
-        stats: parsed.stats || initialState.stats
+      if (!parsed || typeof parsed !== 'object') {
+        throw new Error('Invalid data format');
+      }
+      setPersisted({
+        dsaData: parsed.dsaData || defaultPersisted.dsaData,
+        webData: parsed.webData || defaultPersisted.webData,
+        tasks: parsed.tasks || defaultPersisted.tasks,
+        stats: parsed.stats || defaultPersisted.stats
       });
     } catch (e) {
       console.error('Failed to import data', e);
+      throw new Error('Failed to import data. File may be corrupted.');
     }
   };
 
-  const setUser = (user: User | null) => {
-    setState(prev => ({ ...prev, user }));
-  };
-
-  const setAuthLoading = (loading: boolean) => {
-    setState(prev => ({ ...prev, authLoading: loading }));
-  };
-
-  useEffect(() => {
-    import('../config/firebase').then(({ auth }) => {
-      import('firebase/auth').then(({ onAuthStateChanged }) => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-          setUser(user);
-          setAuthLoading(false);
-        });
-        return () => unsubscribe();
-      });
-    });
-  }, []);
-
   return (
     <GlobalContext.Provider value={{
-      ...state,
+      dsaData: persisted.dsaData,
+      webData: persisted.webData,
+      tasks: persisted.tasks,
+      stats: persisted.stats,
+      user,
+      authLoading,
       toggleDsaPattern,
       toggleWebTopic,
       addTask,
@@ -216,9 +237,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       deleteTask,
       updateStats,
       exportData,
-      importData,
-      setUser,
-      setAuthLoading
+      importData
     }}>
       {children}
     </GlobalContext.Provider>

@@ -33,7 +33,7 @@ const Sidebar = () => {
             <span>{link.label}</span>
           </NavLink>
         ))}
-        <button onClick={logout} className="nav-link logout-btn" style={{ marginTop: 'auto', background: 'transparent', border: 'none', width: '100%', textAlign: 'left', cursor: 'pointer', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '12px', padding: '12px' }}>
+        <button onClick={logout} className="nav-link logout-btn">
           <LogOut size={20} />
           <span>Logout</span>
         </button>

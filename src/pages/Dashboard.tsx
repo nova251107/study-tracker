@@ -1,11 +1,13 @@
-
+import { useState } from 'react';
 import { useGlobalContext } from '../context/GlobalContext';
-import { Flame, Clock, Code, Layout as LayoutIcon } from 'lucide-react';
+import { Flame, Clock, Code, Layout as LayoutIcon, Plus } from 'lucide-react';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import './Dashboard.css';
 
 const Dashboard = () => {
-  const { stats, dsaData, webData } = useGlobalContext();
+  const { stats, dsaData, webData, updateStats, tasks } = useGlobalContext();
+  const [showLogForm, setShowLogForm] = useState(false);
+  const [hours, setHours] = useState('');
 
   const totalDsa = dsaData.reduce((acc, cat) => acc + cat.patterns.length, 0);
   const completedDsa = dsaData.reduce((acc, cat) => acc + cat.patterns.filter(p => p.completed).length, 0);
@@ -19,6 +21,33 @@ const Dashboard = () => {
     { name: 'DSA', completed: completedDsa, total: totalDsa },
     { name: 'Web Dev', completed: completedWeb, total: totalWeb },
   ];
+
+  const handleLogHours = (e: React.FormEvent) => {
+    e.preventDefault();
+    const h = parseFloat(hours);
+    if (!isNaN(h) && h > 0) {
+      updateStats(h);
+      setHours('');
+      setShowLogForm(false);
+    }
+  };
+
+  const today = new Date().toISOString().split('T')[0];
+  const recentActivity: { time: string; text: string }[] = [];
+
+  if (stats.lastStudyDate === today) {
+    recentActivity.push({ time: 'Today', text: `Logged ${stats.weeklyActivity[today] || 0} study hour(s)` });
+  }
+
+  const completedToday = tasks.filter(t => t.completed).length;
+  if (completedToday > 0) {
+    recentActivity.push({ time: 'Today', text: `Completed ${completedToday} task(s)` });
+  }
+
+  const dsaToday = dsaData.flatMap(c => c.patterns).filter(p => p.completed).length;
+  if (dsaToday > 0) {
+    recentActivity.push({ time: 'Today', text: `Completed ${dsaToday} DSA pattern(s)` });
+  }
 
   return (
     <div className="dashboard">
@@ -81,9 +110,46 @@ const Dashboard = () => {
         </div>
 
         <div className="glass-card activity-card">
-          <h2>Recent Activity</h2>
+          <div className="activity-header">
+            <h2>Recent Activity</h2>
+            <button className="btn btn-primary btn-sm" onClick={() => setShowLogForm(true)}>
+              <Plus size={16} />
+              Log Hours
+            </button>
+          </div>
+
+          {showLogForm && (
+            <form onSubmit={handleLogHours} className="log-hours-form">
+              <input
+                type="number"
+                step="0.5"
+                min="0.5"
+                max="24"
+                value={hours}
+                onChange={(e) => setHours(e.target.value)}
+                placeholder="Study hours..."
+                className="hours-input"
+                autoFocus
+                required
+              />
+              <div className="log-form-actions">
+                <button type="submit" className="btn btn-primary">Save</button>
+                <button type="button" className="btn btn-secondary" onClick={() => { setShowLogForm(false); setHours(''); }}>Cancel</button>
+              </div>
+            </form>
+          )}
+
           <div className="activity-list">
-            <p className="no-activity">No recent activity recorded today.</p>
+            {recentActivity.length === 0 ? (
+              <p className="no-activity">No recent activity recorded today. Log your study hours to get started!</p>
+            ) : (
+              recentActivity.map((item, i) => (
+                <div key={i} className="activity-item">
+                  <span className="activity-time">{item.time}</span>
+                  <p className="activity-text">{item.text}</p>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>

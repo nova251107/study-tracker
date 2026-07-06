@@ -61,3 +61,17 @@
   font-size: 0.875rem;
   text-align: center;
 }
+
+.logout-btn {
+  margin-top: auto;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+}

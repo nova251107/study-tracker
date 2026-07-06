@@ -46,11 +46,11 @@ const DsaTracker = () => {
               
               <ul className="pattern-list">
                 {category.patterns.map(pattern => (
-                  <li key={pattern.id} className={`pattern-item ${pattern.completed ? 'completed' : ''}`} onClick={() => toggleDsaPattern(category.id, pattern.id)}>
-                    <button className="check-btn">
+                  <li key={pattern.id} className={`pattern-item ${pattern.completed ? 'completed' : ''}`}>
+                    <button className="check-btn" onClick={() => toggleDsaPattern(category.id, pattern.id)} aria-label={pattern.completed ? `Mark ${pattern.name} incomplete` : `Mark ${pattern.name} complete`}>
                       {pattern.completed ? <CheckCircle2 className="checked-icon" size={20} /> : <Circle className="unchecked-icon" size={20} />}
+                      <span className="pattern-name">{pattern.name}</span>
                     </button>
-                    <span className="pattern-name">{pattern.name}</span>
                   </li>
                 ))}
               </ul>

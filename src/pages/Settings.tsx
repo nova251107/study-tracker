@@ -25,8 +25,12 @@ const Settings = () => {
       const reader = new FileReader();
       reader.onload = (e) => {
         const content = e.target?.result as string;
-        importData(content);
-        alert('Data imported successfully!');
+        try {
+          importData(content);
+          alert('Data imported successfully!');
+        } catch (err) {
+          alert(err instanceof Error ? err.message : 'Import failed');
+        }
       };
       reader.readAsText(file);
     }

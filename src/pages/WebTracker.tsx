@@ -34,26 +34,23 @@ const WebTracker = () => {
             <li 
               key={topic.id} 
               className={`roadmap-item ${topic.completed ? 'completed' : ''}`}
-              onClick={() => toggleWebTopic(topic.id)}
             >
               <div className="roadmap-line">
                 <div className="roadmap-dot"></div>
                 {index !== webData.length - 1 && <div className="roadmap-connector"></div>}
               </div>
               
-              <div className="roadmap-content">
-                <button className="check-btn">
-                  {topic.completed ? (
-                    <CheckSquare className="checked-icon web-icon" size={24} />
-                  ) : (
-                    <Square className="unchecked-icon" size={24} />
-                  )}
-                </button>
+              <button className="roadmap-content check-btn" onClick={() => toggleWebTopic(topic.id)} aria-label={topic.completed ? `Mark ${topic.name} incomplete` : `Mark ${topic.name} complete`}>
+                {topic.completed ? (
+                  <CheckSquare className="checked-icon web-icon" size={24} />
+                ) : (
+                  <Square className="unchecked-icon" size={24} />
+                )}
                 <div className="topic-info">
                   <h3>{topic.name}</h3>
                   <p>Step {index + 1} of {total}</p>
                 </div>
-              </div>
+              </button>
             </li>
           ))}
         </ul>

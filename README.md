@@ -1,32 +1,90 @@
-# React + TypeScript + Vite
+# Study Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A personal study tracking app to monitor your DSA patterns, web development roadmap, daily study hours, and tasks.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **📊 Dashboard** — Overview of streak, study hours, DSA/Web progress, activity feed, and chart
+- **📝 DSA Tracker** — 110 patterns across 18 categories with per-category progress bars
+- **🌐 Web Dev Roadmap** — 18-step full stack journey with timeline UI
+- **✅ Task System** — Add, toggle, delete tasks with deadlines
+- **📈 Analytics** — Weekly study hours chart, DSA/Web completion cards, 30-day activity heatmap
+- **⚙️ Settings** — Export/import JSON backup, reset all data
+- **🔐 Google Auth** — Firebase Authentication with protected routes
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Layer | Technology |
+|---|---|
+| Frontend | React 19, TypeScript 6, Vite 8 |
+| Routing | React Router 7 (HashRouter) |
+| Auth | Firebase 12 (Google Auth) |
+| Charts | Recharts 3 |
+| Icons | Lucide React |
+| Linting | Oxlint |
+| Testing | Vitest + React Testing Library |
+| Deployment | GitHub Pages (via GitHub Actions) |
 
-## Expanding the Oxlint configuration
+## Getting Started
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+```bash
+# Install dependencies
+npm install
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+# Start dev server
+npm run dev
+
+# Lint
+npm run lint
+
+# Test
+npm test
+
+# Build for production
+npm run build
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Environment Variables
+
+Create a `.env` file (optional — defaults work for local dev):
+
+```env
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_project.firebasestorage.app
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+```
+
+## Scripts
+
+| Script | Description |
+|---|---|
+| `npm run dev` | Start dev server |
+| `npm run build` | Type-check + build |
+| `npm test` | Run tests once |
+| `npm run lint` | Run Oxlint |
+| `npm run parse-data` | Parse raw text files into JSON data |
+
+## Project Structure
+
+```
+study-tracker/
+├── src/
+│   ├── components/   # Sidebar, Layout, ErrorBoundary
+│   ├── config/       # Firebase configuration
+│   ├── context/      # Global state (GlobalContext)
+│   ├── data/         # DSA patterns & web roadmap JSON
+│   ├── pages/        # Dashboard, DSA, Web, Tasks, Analytics, Settings, Login
+│   ├── test/         # Test setup & test files
+│   ├── App.tsx       # Root component with routes
+│   └── main.tsx      # Entry point
+├── public/           # Static assets
+├── .github/          # CI/CD (deploy, dependabot)
+└── parse-data.cjs    # CLI tool to generate data JSON
+```
+
+## Deployment
+
+The app auto-deploys to GitHub Pages on push to `main` via GitHub Actions.

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LogIn } from 'lucide-react';
 import { signInWithGoogle } from '../config/firebase';
@@ -8,6 +8,7 @@ import './Login.css';
 const Login = () => {
   const navigate = useNavigate();
   const { user } = useGlobalContext();
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (user) {
@@ -16,12 +17,13 @@ const Login = () => {
   }, [user, navigate]);
 
   const handleLogin = async () => {
+    setError('');
     try {
       await signInWithGoogle();
       navigate('/');
-    } catch (error) {
-      console.error(error);
-      alert('Failed to sign in. Check console for details.');
+    } catch (err) {
+      console.error(err);
+      setError('Failed to sign in. Please try again.');
     }
   };
 
@@ -35,6 +37,8 @@ const Login = () => {
           <h1>Welcome Back</h1>
           <p>Sign in to your Personal Study Tracker</p>
         </div>
+
+        {error && <div className="login-error">{error}</div>}
         
         <button onClick={handleLogin} className="google-btn">
           <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo" />

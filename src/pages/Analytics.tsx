@@ -1,27 +1,49 @@
-
 import { useGlobalContext } from '../context/GlobalContext';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import './Analytics.css';
 
+const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
 const Analytics = () => {
   const { stats, dsaData, webData } = useGlobalContext();
 
-  // Mock data for the area chart (in a real app, we would store daily completion history)
-  const activityData = [
-    { name: 'Mon', hours: 1, tasks: 2 },
-    { name: 'Tue', hours: 2, tasks: 4 },
-    { name: 'Wed', hours: 1.5, tasks: 3 },
-    { name: 'Thu', hours: 3, tasks: 6 },
-    { name: 'Fri', hours: 2.5, tasks: 5 },
-    { name: 'Sat', hours: 4, tasks: 8 },
-    { name: 'Sun', hours: stats.totalHours > 14 ? 3 : stats.totalHours, tasks: 4 },
-  ];
+  const today = new Date();
+  const dayOfWeek = today.getDay();
+  const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+
+  const activityData = WEEKDAYS.map((name, i) => {
+    const d = new Date(today);
+    d.setDate(today.getDate() + mondayOffset + i);
+    const dateKey = d.toISOString().split('T')[0];
+    return {
+      name,
+      hours: stats.weeklyActivity[dateKey] || 0
+    };
+  });
 
   const totalDsa = dsaData.reduce((acc, cat) => acc + cat.patterns.length, 0);
   const completedDsa = dsaData.reduce((acc, cat) => acc + cat.patterns.filter(p => p.completed).length, 0);
-  
+
   const totalWeb = webData.length;
   const completedWeb = webData.filter(t => t.completed).length;
+
+  const heatmapDays = Array.from({ length: 30 }, (_, i) => {
+    const d = new Date();
+    d.setDate(d.getDate() - (29 - i));
+    const dateKey = d.toISOString().split('T')[0];
+    const hours = stats.weeklyActivity[dateKey] || 0;
+    return { dateKey, hours };
+  });
+
+  const maxHours = Math.max(1, ...heatmapDays.map(d => d.hours));
+
+  const getHeatmapColor = (hours: number) => {
+    if (hours === 0) return 'rgba(255,255,255,0.05)';
+    const intensity = Math.min(1, hours / maxHours);
+    if (intensity < 0.33) return 'rgba(99, 102, 241, 0.3)';
+    if (intensity < 0.66) return 'rgba(99, 102, 241, 0.6)';
+    return 'var(--accent-primary)';
+  };
 
   return (
     <div className="analytics-page">
@@ -47,7 +69,7 @@ const Analytics = () => {
                 <XAxis dataKey="name" stroke="#a1a1aa" />
                 <YAxis stroke="#a1a1aa" />
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" vertical={false} />
-                <Tooltip 
+                <Tooltip
                   contentStyle={{ backgroundColor: '#151518', borderColor: 'rgba(255,255,255,0.1)' }}
                   itemStyle={{ color: '#fff' }}
                 />
@@ -87,29 +109,18 @@ const Analytics = () => {
             </div>
             <p>Your recent daily study sessions.</p>
             <div className="heatmap-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', gap: '4px', marginTop: '1rem' }}>
-              {Array.from({ length: 30 }).map((_, i) => (
-                <div 
-                  key={i} 
-                  style={{ 
-                    aspectRatio: '1', 
-                    background: Math.random() > 0.7 ? 'var(--accent-primary)' : 'rgba(255,255,255,0.05)',
+              {heatmapDays.map((day, i) => (
+                <div
+                  key={i}
+                  style={{
+                    aspectRatio: '1',
+                    background: getHeatmapColor(day.hours),
                     borderRadius: '4px',
-                    opacity: Math.random() > 0.7 ? 1 : 0.5
-                  }} 
-                  title={`Day ${30 - i}`}
+                    opacity: day.hours > 0 ? 1 : 0.5
+                  }}
+                  title={`${day.dateKey}: ${day.hours} hour${day.hours !== 1 ? 's' : ''}`}
                 />
               ))}
-            </div>
-          </div>
-
-          <div className="glass-card stat-detail-card">
-            <div className="stat-detail-header">
-              <h3>Web Dev Journey</h3>
-              <span className="badge danger">{Math.round((completedWeb / totalWeb) * 100) || 0}%</span>
-            </div>
-            <p>You have completed <strong>{completedWeb}</strong> out of <strong>{totalWeb}</strong> topics.</p>
-            <div className="progress-bg">
-              <div className="progress-fill web-fill" style={{ width: `${(completedWeb / totalWeb) * 100}%` }}></div>
             </div>
           </div>
         </div>
