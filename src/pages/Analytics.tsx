@@ -1,4 +1,4 @@
-import { useGlobalContext } from '../context/GlobalContext';
+import { useGlobalContext } from '../context/useGlobalContext';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import './Analytics.css';
 
@@ -108,14 +108,13 @@ const Analytics = () => {
               <span className="badge">Last 30 Days</span>
             </div>
             <p>Your recent daily study sessions.</p>
-            <div className="heatmap-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', gap: '4px', marginTop: '1rem' }}>
+            <div className="heatmap-grid">
               {heatmapDays.map((day, i) => (
                 <div
                   key={i}
+                  className="heatmap-cell"
                   style={{
-                    aspectRatio: '1',
                     background: getHeatmapColor(day.hours),
-                    borderRadius: '4px',
                     opacity: day.hours > 0 ? 1 : 0.5
                   }}
                   title={`${day.dateKey}: ${day.hours} hour${day.hours !== 1 ? 's' : ''}`}

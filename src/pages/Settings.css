@@ -2,37 +2,51 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  max-width: 800px;
+  max-width: 600px;
 }
 
 .settings-section {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
+}
+
+.settings-section h2 {
+  margin: 0;
 }
 
 .settings-desc {
-  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
 }
 
 .settings-actions {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
-}
-
-.btn-danger {
-  background: rgba(239, 68, 68, 0.1);
-  color: var(--accent-danger);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  align-self: flex-start;
-}
-
-.btn-danger:hover {
-  background: var(--accent-danger);
-  color: white;
 }
 
 .danger-zone {
   border-color: rgba(239, 68, 68, 0.2);
+}
+
+.danger-zone h2 {
+  color: var(--accent-danger);
+}
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--accent-danger);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  transition: var(--transition);
+}
+
+.btn-danger:hover {
+  background: rgba(239, 68, 68, 0.2);
 }

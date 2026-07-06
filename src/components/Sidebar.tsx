@@ -1,9 +1,12 @@
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Code2, MonitorPlay, BarChart3, Settings, CheckSquare, LogOut } from 'lucide-react';
+import { LayoutDashboard, Code2, MonitorPlay, BarChart3, Settings, CheckSquare, LogOut, Sun, Moon } from 'lucide-react';
 import { logout } from '../config/firebase';
+import { useTheme } from '../context/ThemeContext';
 import './Sidebar.css';
 
 const Sidebar = () => {
+  const { theme, toggleTheme } = useTheme();
+  
   const links = [
     { to: '/', icon: <LayoutDashboard size={20} />, label: 'Dashboard' },
     { to: '/tasks', icon: <CheckSquare size={20} />, label: 'Tasks' },
@@ -40,7 +43,10 @@ const Sidebar = () => {
       </nav>
       
       <div className="sidebar-footer">
-        <p>Premium Learning</p>
+        <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+        </button>
       </div>
     </aside>
   );

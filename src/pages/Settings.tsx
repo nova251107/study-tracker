@@ -1,10 +1,12 @@
 import React, { useRef } from 'react';
-import { useGlobalContext } from '../context/GlobalContext';
-import { Download, Upload, Trash2 } from 'lucide-react';
+import { useGlobalContext } from '../context/useGlobalContext';
+import { useTheme } from '../context/ThemeContext';
+import { Download, Upload, Trash2, Sun, Moon } from 'lucide-react';
 import './Settings.css';
 
 const Settings = () => {
   const { exportData, importData } = useGlobalContext();
+  const { theme, toggleTheme } = useTheme();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleExport = () => {
@@ -53,6 +55,17 @@ const Settings = () => {
       </header>
 
       <div className="settings-container">
+        <div className="glass-card settings-section">
+          <h2>Appearance</h2>
+          <p className="settings-desc">Toggle between dark and light mode.</p>
+          <div className="settings-actions">
+            <button className="btn btn-secondary" onClick={toggleTheme}>
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+              {theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            </button>
+          </div>
+        </div>
+
         <div className="glass-card settings-section">
           <h2>Data Management</h2>
           <p className="settings-desc">Export your progress to save a backup, or import a previous backup to restore your data.</p>

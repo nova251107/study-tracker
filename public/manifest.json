@@ -1,0 +1,16 @@
+{
+  "name": "StudyTracker",
+  "short_name": "StudyTracker",
+  "description": "Track your DSA patterns, web development journey, and daily study goals.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0a0a0b",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}

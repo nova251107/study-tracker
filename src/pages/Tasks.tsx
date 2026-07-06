@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useGlobalContext } from '../context/GlobalContext';
+import { useGlobalContext } from '../context/useGlobalContext';
 import { CheckCircle2, Circle, Trash2, Calendar, Plus } from 'lucide-react';
 import './Tasks.css';
 
@@ -62,23 +62,27 @@ const Tasks = () => {
             <p className="no-tasks">No tasks added yet. Start by adding a goal!</p>
           ) : (
             <ul className="task-list">
-              {tasks.map(task => (
-                <li key={task.id} className={`task-item ${task.completed ? 'completed' : ''}`}>
-                  <button className="check-btn" onClick={() => toggleTask(task.id)}>
-                    {task.completed ? <CheckCircle2 className="checked-icon" size={24} /> : <Circle className="unchecked-icon" size={24} />}
-                  </button>
-                  <div className="task-info">
-                    <h3 className={task.completed ? 'strike' : ''}>{task.title}</h3>
-                    <p className="task-deadline">
-                      <Calendar size={14} />
-                      {new Date(task.deadline).toLocaleDateString()}
-                    </p>
-                  </div>
-                  <button className="delete-btn" onClick={() => deleteTask(task.id)}>
-                    <Trash2 size={18} />
-                  </button>
-                </li>
-              ))}
+              {tasks.map(task => {
+                const isOverdue = !task.completed && new Date(task.deadline) < new Date();
+                return (
+                  <li key={task.id} className={`task-item ${task.completed ? 'completed' : ''} ${isOverdue ? 'overdue' : ''}`}>
+                    <button className="check-btn" onClick={() => toggleTask(task.id)}>
+                      {task.completed ? <CheckCircle2 className="checked-icon" size={24} /> : <Circle className="unchecked-icon" size={24} />}
+                    </button>
+                    <div className="task-info">
+                      <h3 className={task.completed ? 'strike' : ''}>{task.title}</h3>
+                      <p className={`task-deadline ${isOverdue ? 'overdue-text' : ''}`}>
+                        <Calendar size={14} />
+                        {new Date(task.deadline).toLocaleDateString()}
+                        {isOverdue && ' (Overdue!)'}
+                      </p>
+                    </div>
+                    <button className="delete-btn" onClick={() => deleteTask(task.id)}>
+                      <Trash2 size={18} />
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           )}
         </div>

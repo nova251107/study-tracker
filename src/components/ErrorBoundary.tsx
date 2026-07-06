@@ -1,45 +1,34 @@
 import React from 'react';
 
-interface ErrorBoundaryState {
-  hasError: boolean;
-  error: Error | null;
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
 }
 
-export class ErrorBoundary extends React.Component<
-  { children: React.ReactNode },
-  ErrorBoundaryState
-> {
-  constructor(props: { children: React.ReactNode }) {
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
+
+export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
-    this.state = { hasError: false, error: null };
+    this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: Error) {
-    return { hasError: true, error };
+  static getDerivedStateFromError() {
+    return { hasError: true };
   }
 
   render() {
     if (this.state.hasError) {
       return (
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          minHeight: '100vh',
-          padding: '2rem',
-          textAlign: 'center',
-          color: 'var(--text-primary)',
-        }}>
-          <h1 style={{ fontSize: '2rem', marginBottom: '1rem' }}>Something went wrong</h1>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem' }}>
-            {this.state.error?.message || 'An unexpected error occurred'}
-          </p>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', justifyContent: 'center', alignItems: 'center', gap: '1rem', background: '#0a0a0b', color: '#fff' }}>
+          <h1>Something went wrong</h1>
+          <p>An unexpected error occurred. Please try refreshing the page.</p>
           <button
             onClick={() => window.location.reload()}
-            className="btn btn-primary"
+            style={{ padding: '0.5rem 1rem', borderRadius: '8px', background: '#6366f1', color: '#fff', border: 'none', cursor: 'pointer' }}
           >
-            Reload Page
+            Refresh Page
           </button>
         </div>
       );

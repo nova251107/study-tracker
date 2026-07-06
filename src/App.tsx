@@ -1,5 +1,7 @@
 import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { GlobalProvider, useGlobalContext } from './context/GlobalContext';
+import { GlobalProvider } from './context/GlobalContext';
+import { useGlobalContext } from './context/useGlobalContext';
+import { ThemeProvider } from './context/ThemeContext';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import DsaTracker from './pages/DsaTracker';
@@ -8,21 +10,25 @@ import Analytics from './pages/Analytics';
 import Settings from './pages/Settings';
 import Tasks from './pages/Tasks';
 import Login from './pages/Login';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, authLoading } = useGlobalContext();
   
-  if (authLoading) return <div style={{ display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center' }}>Loading...</div>;
+  if (authLoading) return (
+    <div style={{ display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center', background: 'var(--bg-dark)', color: 'var(--text-primary)' }}>
+      Loading...
+    </div>
+  );
   if (!user) return <Navigate to="/login" />;
   
   return <>{children}</>;
 };
 
-import { ErrorBoundary } from './components/ErrorBoundary';
-
 function App() {
   return (
     <ErrorBoundary>
+    <ThemeProvider>
     <GlobalProvider>
       <HashRouter>
         <Routes>
@@ -38,6 +44,7 @@ function App() {
         </Routes>
       </HashRouter>
     </GlobalProvider>
+    </ThemeProvider>
     </ErrorBoundary>
   );
 }

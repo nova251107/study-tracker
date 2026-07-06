@@ -1,13 +1,31 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import dsaPatternsRaw from '../data/dsaPatterns.json';
 import webDevRoadmapRaw from '../data/webDevRoadmap.json';
 import { auth } from '../config/firebase';
 import { onAuthStateChanged, type User } from 'firebase/auth';
 
+export interface LeetCodeQuestion {
+  name: string;
+  url: string;
+  difficulty: 'Easy' | 'Medium' | 'Hard';
+}
+
+export interface Resource {
+  type: 'video' | 'article';
+  label: string;
+  url: string;
+}
+
 export interface Pattern {
   id: string;
   name: string;
   completed: boolean;
+  difficulty?: string;
+  notes?: string;
+  questions?: LeetCodeQuestion[];
+  resources?: Resource[];
+  lastReviewed?: string;
 }
 
 export interface PatternCategory {
@@ -20,6 +38,8 @@ export interface WebTopic {
   id: string;
   name: string;
   completed: boolean;
+  subtopics?: string[];
+  projects?: string[];
 }
 
 export interface Stats {
@@ -43,7 +63,7 @@ interface PersistedState {
   stats: Stats;
 }
 
-interface GlobalContextType {
+export interface GlobalContextType {
   dsaData: PatternCategory[];
   webData: WebTopic[];
   tasks: Task[];
@@ -100,9 +120,9 @@ function savePersistedState(state: PersistedState): void {
   }
 }
 
-const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
+export const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
 
-export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const GlobalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [persisted, setPersisted] = useState<PersistedState>(loadPersistedState);
   const [user, setUser] = useState<User | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
@@ -126,7 +146,9 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ childr
           return {
             ...cat,
             patterns: cat.patterns.map(p =>
-              p.id === patternId ? { ...p, completed: !p.completed } : p
+              p.id === patternId
+                ? { ...p, completed: !p.completed, lastReviewed: new Date().toISOString() }
+                : p
             )
           };
         }
@@ -242,12 +264,4 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       {children}
     </GlobalContext.Provider>
   );
-};
-
-export const useGlobalContext = () => {
-  const context = useContext(GlobalContext);
-  if (!context) {
-    throw new Error('useGlobalContext must be used within a GlobalProvider');
-  }
-  return context;
 };

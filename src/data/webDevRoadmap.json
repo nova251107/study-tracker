@@ -2,91 +2,336 @@
   {
     "id": "w1",
     "name": "HTML",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "HTML5 Semantic Tags (header, nav, main, section, article, footer)",
+      "Forms & Input Types",
+      "Tables & Lists",
+      "Media Elements (img, video, audio, iframe)",
+      "SEO Meta Tags",
+      "Accessibility (ARIA roles, alt text)"
+    ],
+    "projects": [
+      "Personal Portfolio Page",
+      "Landing Page Clone (e.g., Starbucks)",
+      "Survey Form"
+    ]
   },
   {
     "id": "w2",
     "name": "CSS",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "Selectors & Specificity",
+      "Box Model & Positioning",
+      "Flexbox & Grid",
+      "Responsive Design (Media Queries)",
+      "Animations & Transitions",
+      "CSS Custom Properties (Variables)",
+      "Pseudo-classes & Pseudo-elements",
+      "SASS/SCSS Basics"
+    ],
+    "projects": [
+      "Responsive Navbar",
+      "CSS Art (e.g., T-Rex Dinosaur)",
+      "Clone any website homepage (Netflix, Spotify)"
+    ]
   },
   {
     "id": "w3",
     "name": "Git + GitHub",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "git init, add, commit, push, pull",
+      "Branching & Merging",
+      "Pull Requests & Code Review",
+      "Merge Conflicts Resolution",
+      "git rebase vs git merge",
+      "GitHub Actions Basics",
+      "Open Source Contributions"
+    ],
+    "projects": [
+      "Contribute to an Open Source Project",
+      "Setup CI/CD Pipeline"
+    ]
   },
   {
     "id": "w4",
     "name": "JavaScript (Core + DOM + ES6)",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "Variables (var, let, const) & Scoping",
+      "Functions, Arrow Functions, Closures",
+      "Objects, Prototypes, this keyword",
+      "Arrays & Higher-Order Functions (map, filter, reduce)",
+      "Promises, Async/Await, Event Loop",
+      "DOM Manipulation & Events",
+      "ES6+ (Destructuring, Spread, Modules)",
+      "Error Handling (try/catch, custom errors)"
+    ],
+    "projects": [
+      "Todo List App (Vanilla JS)",
+      "Weather App (fetch API)",
+      "Tic-Tac-Toe Game"
+    ]
   },
   {
     "id": "w5",
     "name": "TypeScript ⭐",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "Types & Interfaces",
+      "Generics",
+      "Enums & Unions",
+      "Type Guards & Narrowing",
+      "Utility Types (Partial, Pick, Omit, etc.)",
+      "Modules & Declaration Files",
+      "Config (tsconfig.json)"
+    ],
+    "projects": [
+      "Convert JS Todo List to TypeScript",
+      "Type-safe API Client"
+    ]
   },
   {
     "id": "w6",
     "name": "React",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "Components, JSX, Props",
+      "State & Lifecycle (useState, useEffect)",
+      "Hooks (useContext, useReducer, useMemo, useCallback, useRef)",
+      "Custom Hooks",
+      "React Router (Routing & Navigation)",
+      "Context API vs Redux/Zustand",
+      "Performance Optimization (memo, lazy, Suspense)",
+      "Testing (React Testing Library, Vitest)"
+    ],
+    "projects": [
+      "E-Commerce Cart Page",
+      "Dashboard with Charts",
+      "Social Media Feed with Infinite Scroll",
+      "Job Board / HackerNews Clone"
+    ]
   },
   {
     "id": "w7",
     "name": "Next.js",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "App Router vs Pages Router",
+      "SSR, SSG, ISR",
+      "Server Components & Client Components",
+      "API Routes",
+      "Middleware",
+      "Authentication (NextAuth)",
+      "File-based Routing & Dynamic Routes",
+      "Deployment (Vercel)"
+    ],
+    "projects": [
+      "Blog with MDX",
+      "Full-Stack SaaS Landing Page",
+      "E-Commerce Storefront"
+    ]
   },
   {
     "id": "w8",
     "name": "Tailwind CSS",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "Utility-First Approach",
+      "Responsive Design with Tailwind",
+      "Custom Config (tailwind.config.js)",
+      "Dark Mode Toggle",
+      "Components & Composition Patterns",
+      "Animations with Tailwind"
+    ],
+    "projects": [
+      "Reusable Component Library",
+      "Landing Page using only Tailwind"
+    ]
   },
   {
     "id": "w9",
     "name": "Node.js",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "Event Loop & Async Programming",
+      "File System (fs module)",
+      "Streams & Buffers",
+      "Process & Environment Variables",
+      "npm Scripts & Package Management",
+      "Error Handling & Debugging",
+      "Cluster & Child Processes"
+    ],
+    "projects": [
+      "CLI Tool (e.g., file organizer)",
+      "Real-time Chat Server (with WebSockets)",
+      "URL Shortener Backend"
+    ]
   },
   {
     "id": "w10",
     "name": "Express.js",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "Routing (GET, POST, PUT, DELETE)",
+      "Middleware (custom, built-in, third-party)",
+      "Request/Response Handling",
+      "Error Handling Middleware",
+      "File Upload (multer)",
+      "CORS & Security Headers",
+      "RESTful API Design Best Practices"
+    ],
+    "projects": [
+      "REST API for Todo List",
+      "Blog API with CRUD Operations",
+      "Authentication API with JWT"
+    ]
   },
   {
     "id": "w11",
     "name": "REST API",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "HTTP Methods & Status Codes",
+      "API Versioning",
+      "Request Validation (express-validator, zod)",
+      "Pagination, Sorting, Filtering",
+      "Rate Limiting",
+      "API Documentation (Swagger/OpenAPI)",
+      "Testing APIs (Postman, Supertest)"
+    ],
+    "projects": [
+      "Library Management API",
+      "E-Commerce Product API",
+      "Movie Database API"
+    ]
   },
   {
     "id": "w12",
     "name": "Authentication (JWT/OAuth)",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "JWT: Access Token & Refresh Token",
+      "Password Hashing (bcrypt)",
+      "OAuth 2.0 (Google, GitHub)",
+      "Session-based Auth vs Token-based",
+      "Role-based Access Control (RBAC)",
+      "CSRF & XSS Protection",
+      "Firebase Authentication"
+    ],
+    "projects": [
+      "Full Auth System (Login/Signup/Logout)",
+      "OAuth Integration with Google/GitHub"
+    ]
   },
   {
     "id": "w13",
     "name": "Database (MongoDB / PostgreSQL)",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "MongoDB: Documents, Collections, Aggregation Pipeline",
+      "PostgreSQL: Tables, Relationships, Joins",
+      "Indexing & Query Optimization",
+      "ACID Properties & Transactions",
+      "Schema Design (Normalization vs Denormalization)",
+      "MongoDB Atlas / Supabase"
+    ],
+    "projects": [
+      "Design Database Schema for E-Commerce",
+      "Build a Search Feature with Text Indexes"
+    ]
   },
   {
     "id": "w14",
     "name": "ORM (Prisma / Mongoose)",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "Schema Definition & Migrations",
+      "CRUD Operations",
+      "Relations (1:1, 1:M, M:M)",
+      "Query Optimization (eager/lazy loading)",
+      "Middleware/Hooks",
+      "Seeding Data"
+    ],
+    "projects": [
+      "User & Post System with Relations",
+      "Blog API with Prisma + Express"
+    ]
   },
   {
     "id": "w15",
     "name": "Docker",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "Dockerfile & Images",
+      "docker-compose (multi-container setup)",
+      "Volumes & Networking",
+      "Environment Variables in Docker",
+      "Docker Hub & Image Registry",
+      "Multi-stage Builds"
+    ],
+    "projects": [
+      "Dockerize a Full-Stack App (Frontend + Backend + DB)",
+      "docker-compose for Dev Environment"
+    ]
   },
   {
     "id": "w16",
     "name": "Deployment (Vercel / VPS / Cloud)",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "Vercel: Frontend + Serverless Functions",
+      "AWS EC2 / DigitalOcean VPS Setup",
+      "Nginx Reverse Proxy",
+      "PM2 for Node.js Process Management",
+      "SSL/HTTPS (Let's Encrypt)",
+      "Environment Variables Management",
+      "CI/CD Pipelines (GitHub Actions)"
+    ],
+    "projects": [
+      "Deploy Full-Stack App on VPS",
+      "Setup Automated CI/CD Pipeline"
+    ]
   },
   {
     "id": "w17",
     "name": "System Design",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "Load Balancers & Scaling Strategies",
+      "Caching (Redis, CDN)",
+      "Database Sharding & Replication",
+      "Message Queues (RabbitMQ, Kafka)",
+      "Microservices vs Monolith",
+      "CAP Theorem & Consistency Models",
+      "Design Patterns (Singleton, Factory, Observer)",
+      "Rate Limiting & Throttling"
+    ],
+    "projects": [
+      "Design URL Shortener (like TinyURL)",
+      "Design WhatsApp / Chat System",
+      "Design E-Commerce System (like Amazon)"
+    ]
   },
   {
     "id": "w18",
     "name": "Projects",
-    "completed": false
+    "completed": false,
+    "subtopics": [
+      "Full Stack Portfolio (React + Node + DB)",
+      "Real-time Collaboration App",
+      "Video Streaming Platform",
+      "E-Commerce Platform with Payments",
+      "Social Media App"
+    ],
+    "projects": [
+      "Build a Full Stack Netflix Clone",
+      "Build a Real-time Chat Application",
+      "Build a Task Management Tool (like Jira light)",
+      "Build an AI-Powered Blog Writer",
+      "Build a Stock Market Dashboard"
+    ]
   }
 ]

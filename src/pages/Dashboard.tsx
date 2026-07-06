@@ -1,8 +1,78 @@
-import { useState } from 'react';
-import { useGlobalContext } from '../context/GlobalContext';
-import { Flame, Clock, Code, Layout as LayoutIcon, Plus } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { useGlobalContext } from '../context/useGlobalContext';
+import { Flame, Clock, Code, Layout as LayoutIcon, Plus, Play, Pause, RotateCcw } from 'lucide-react';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import './Dashboard.css';
+
+const Timer = () => {
+  const [time, setTime] = useState(25 * 60);
+  const [isRunning, setIsRunning] = useState(false);
+  const [mode, setMode] = useState<'focus' | 'break'>('focus');
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    if (isRunning) {
+      intervalRef.current = setInterval(() => {
+        setTime(prev => {
+          if (prev <= 1) {
+            setIsRunning(false);
+            if (mode === 'focus') {
+              setMode('break');
+              setTime(5 * 60);
+            } else {
+              setMode('focus');
+              setTime(25 * 60);
+            }
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [isRunning, mode]);
+
+  const toggleTimer = () => setIsRunning(prev => !prev);
+  
+  const resetTimer = () => {
+    setIsRunning(false);
+    if (mode === 'focus') setTime(25 * 60);
+    else setTime(5 * 60);
+  };
+
+  const switchMode = (newMode: 'focus' | 'break') => {
+    setIsRunning(false);
+    setMode(newMode);
+    setTime(newMode === 'focus' ? 25 * 60 : 5 * 60);
+  };
+
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+
+  return (
+    <div className="timer-card glass-card">
+      <div className="timer-modes">
+        <button className={`timer-mode-btn ${mode === 'focus' ? 'active' : ''}`} onClick={() => switchMode('focus')}>Focus</button>
+        <button className={`timer-mode-btn ${mode === 'break' ? 'active' : ''}`} onClick={() => switchMode('break')}>Break</button>
+      </div>
+      <div className="timer-display" data-mode={mode}>
+        <span className="timer-time">{String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}</span>
+      </div>
+      <div className="timer-controls">
+        <button className="btn btn-primary" onClick={toggleTimer}>
+          {isRunning ? <Pause size={18} /> : <Play size={18} />}
+          {isRunning ? 'Pause' : 'Start'}
+        </button>
+        <button className="btn btn-secondary" onClick={resetTimer}>
+          <RotateCcw size={18} />
+          Reset
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const Dashboard = () => {
   const { stats, dsaData, webData, updateStats, tasks } = useGlobalContext();
@@ -90,68 +160,72 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="dashboard-content grid-2">
-        <div className="glass-card chart-card">
-          <h2>Overall Progress</h2>
-          <div className="chart-container">
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
-                <XAxis dataKey="name" stroke="#a1a1aa" />
-                <YAxis stroke="#a1a1aa" />
-                <Tooltip 
-                  contentStyle={{ backgroundColor: '#151518', borderColor: 'rgba(255,255,255,0.1)' }}
-                  itemStyle={{ color: '#fff' }}
+      <div className="dashboard-grid">
+        <div className="dashboard-content">
+          <div className="glass-card chart-card">
+            <h2>Overall Progress</h2>
+            <div className="chart-container">
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={chartData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
+                  <XAxis dataKey="name" stroke="var(--text-secondary)" />
+                  <YAxis stroke="var(--text-secondary)" />
+                  <Tooltip 
+                    contentStyle={{ backgroundColor: 'var(--bg-card)', borderColor: 'var(--border-color)' }}
+                    itemStyle={{ color: 'var(--text-primary)' }}
+                  />
+                  <Bar dataKey="completed" fill="#6366f1" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          <div className="glass-card activity-card">
+            <div className="activity-header">
+              <h2>Recent Activity</h2>
+              <button className="btn btn-primary btn-sm" onClick={() => setShowLogForm(true)}>
+                <Plus size={16} />
+                Log Hours
+              </button>
+            </div>
+
+            {showLogForm && (
+              <form onSubmit={handleLogHours} className="log-hours-form">
+                <input
+                  type="number"
+                  step="0.5"
+                  min="0.5"
+                  max="24"
+                  value={hours}
+                  onChange={(e) => setHours(e.target.value)}
+                  placeholder="Study hours..."
+                  className="hours-input"
+                  autoFocus
+                  required
                 />
-                <Bar dataKey="completed" fill="#6366f1" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
-        <div className="glass-card activity-card">
-          <div className="activity-header">
-            <h2>Recent Activity</h2>
-            <button className="btn btn-primary btn-sm" onClick={() => setShowLogForm(true)}>
-              <Plus size={16} />
-              Log Hours
-            </button>
-          </div>
-
-          {showLogForm && (
-            <form onSubmit={handleLogHours} className="log-hours-form">
-              <input
-                type="number"
-                step="0.5"
-                min="0.5"
-                max="24"
-                value={hours}
-                onChange={(e) => setHours(e.target.value)}
-                placeholder="Study hours..."
-                className="hours-input"
-                autoFocus
-                required
-              />
-              <div className="log-form-actions">
-                <button type="submit" className="btn btn-primary">Save</button>
-                <button type="button" className="btn btn-secondary" onClick={() => { setShowLogForm(false); setHours(''); }}>Cancel</button>
-              </div>
-            </form>
-          )}
-
-          <div className="activity-list">
-            {recentActivity.length === 0 ? (
-              <p className="no-activity">No recent activity recorded today. Log your study hours to get started!</p>
-            ) : (
-              recentActivity.map((item, i) => (
-                <div key={i} className="activity-item">
-                  <span className="activity-time">{item.time}</span>
-                  <p className="activity-text">{item.text}</p>
+                <div className="log-form-actions">
+                  <button type="submit" className="btn btn-primary">Save</button>
+                  <button type="button" className="btn btn-secondary" onClick={() => { setShowLogForm(false); setHours(''); }}>Cancel</button>
                 </div>
-              ))
+              </form>
             )}
+
+            <div className="activity-list">
+              {recentActivity.length === 0 ? (
+                <p className="no-activity">No recent activity recorded today. Log your study hours to get started!</p>
+              ) : (
+                recentActivity.map((item, i) => (
+                  <div key={i} className="activity-item">
+                    <span className="activity-time">{item.time}</span>
+                    <p className="activity-text">{item.text}</p>
+                  </div>
+                ))
+              )}
+            </div>
           </div>
         </div>
+
+        <Timer />
       </div>
     </div>
   );

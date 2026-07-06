@@ -23,7 +23,8 @@ vi.mock('firebase/auth', () => ({
 }));
 
 import { renderHook, act } from '@testing-library/react';
-import { GlobalProvider, useGlobalContext } from '../context/GlobalContext';
+import { GlobalProvider } from '../context/GlobalContext';
+import { useGlobalContext } from '../context/useGlobalContext';
 import type { ReactNode } from 'react';
 
 const wrapper = ({ children }: { children: ReactNode }) => (
@@ -115,5 +116,33 @@ describe('GlobalContext', () => {
     const parsed = JSON.parse(exported);
     expect(parsed.tasks).toHaveLength(1);
     expect(parsed.tasks[0].title).toBe('Backup');
+  });
+
+  it('marks lastReviewed on DSA pattern toggle', () => {
+    const { result } = renderHook(() => useGlobalContext(), { wrapper });
+    act(() => {
+      result.current.toggleDsaPattern('c0', 'p1');
+    });
+    const category = result.current.dsaData.find(c => c.id === 'c0')!;
+    const pattern = category.patterns.find(p => p.id === 'p1')!;
+    expect(pattern.lastReviewed).toBeDefined();
+  });
+
+  it('DSA data includes questions for array patterns', () => {
+    const { result } = renderHook(() => useGlobalContext(), { wrapper });
+    const arrayCat = result.current.dsaData.find(c => c.id === 'c1')!;
+    const prefixSum = arrayCat.patterns.find(p => p.id === 'p6')!;
+    expect(prefixSum.questions).toBeDefined();
+    expect(prefixSum.questions!.length).toBeGreaterThan(0);
+    expect(prefixSum.notes).toBeDefined();
+  });
+
+  it('web data includes subtopics and projects', () => {
+    const { result } = renderHook(() => useGlobalContext(), { wrapper });
+    const reactTopic = result.current.webData.find(t => t.id === 'w6')!;
+    expect(reactTopic.subtopics).toBeDefined();
+    expect(reactTopic.subtopics!.length).toBeGreaterThan(0);
+    expect(reactTopic.projects).toBeDefined();
+    expect(reactTopic.projects!.length).toBeGreaterThan(0);
   });
 });

@@ -1,0 +1,79 @@
+.tour-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.tour-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 2.5rem;
+  max-width: 480px;
+  width: 90%;
+  position: relative;
+  text-align: center;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.tour-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--text-secondary);
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: var(--transition);
+}
+
+.tour-close:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
+.tour-steps {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tour-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bg-hover);
+  transition: var(--transition);
+}
+
+.tour-dot.active {
+  background: var(--accent-primary);
+  width: 24px;
+  border-radius: 4px;
+}
+
+.tour-dot.done {
+  background: var(--accent-success);
+}
+
+.tour-card h2 {
+  margin-bottom: 0.75rem;
+}
+
+.tour-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.tour-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
