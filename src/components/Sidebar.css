@@ -1,5 +1,6 @@
 .sidebar-header {
   margin-bottom: 2rem;
+  animation: fadeIn 0.4s ease-out;
 }
 
 .logo {
@@ -9,15 +10,21 @@
 }
 
 .logo-icon {
-  width: 32px;
-  height: 32px;
-  background: var(--accent-primary);
-  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--accent-primary), #4f46e5);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+  animation: float 3s ease-in-out infinite;
 }
 
 .logo h2 {
   font-size: 1.25rem;
   margin: 0;
+  background: linear-gradient(to right, var(--text-primary), var(--text-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .sidebar-nav {
@@ -37,36 +44,21 @@
   font-size: 0.9rem;
   width: 100%;
   text-align: left;
+  color: var(--text-secondary);
+  text-decoration: none;
+  position: relative;
 }
 
 .nav-link:hover {
   background: var(--bg-hover);
+  color: var(--text-primary);
+  transform: translateX(4px);
 }
 
 .nav-link.active {
-  background: rgba(99, 102, 241, 0.1);
+  background: linear-gradient(90deg, rgba(99,102,241,0.12) 0%, transparent 100%);
   color: var(--accent-primary);
-}
-
-.logout-btn {
-  margin-top: auto;
-  color: var(--text-secondary);
-}
-
-.logout-btn:hover {
-  color: var(--accent-danger);
-  background: rgba(239, 68, 68, 0.05);
-}
-
-.sidebar-footer {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border-color);
-}
-
-.sidebar-footer p {
-  font-size: 0.75rem;
-  text-align: center;
+  border-left: 3px solid var(--accent-primary);
 }
 
 .theme-toggle {
@@ -85,4 +77,35 @@
 .theme-toggle:hover {
   background: var(--bg-hover);
   color: var(--text-primary);
+}
+
+.logout-btn {
+  margin-top: auto;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: var(--transition);
+  font-size: 0.9rem;
+  width: 100%;
+  text-align: left;
+}
+
+.logout-btn:hover {
+  color: var(--accent-danger);
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.sidebar-footer {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.sidebar-footer p {
+  font-size: 0.75rem;
+  text-align: center;
+  color: var(--text-secondary);
 }

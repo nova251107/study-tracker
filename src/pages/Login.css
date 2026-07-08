@@ -4,6 +4,10 @@
   justify-content: center;
   align-items: center;
   background: var(--bg-dark);
+  background-image:
+    radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 0% 50%, rgba(16, 185, 129, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 50%, rgba(245, 158, 11, 0.03) 0%, transparent 50%);
 }
 
 .login-card {
@@ -15,6 +19,7 @@
   text-align: center;
   max-width: 400px;
   width: 90%;
+  animation: scaleIn 0.4s ease-out;
 }
 
 .login-icon {
@@ -30,11 +35,11 @@
 
 .login-card h1 {
   margin: 0;
+  background: none;
+  -webkit-text-fill-color: var(--text-primary);
 }
 
-.login-card p {
-  color: var(--text-secondary);
-}
+.login-card p { color: var(--text-secondary); }
 
 .login-btn {
   width: 100%;

@@ -1,10 +1,5 @@
-.chart-container-large {
-  margin-top: 1.5rem;
-}
-
-.full-width {
-  width: 100%;
-}
+.chart-container-large { margin-top: 1.5rem; }
+.full-width { width: 100%; }
 
 .stat-detail-card {
   display: flex;
@@ -20,24 +15,31 @@
 
 .stat-detail-header h3 {
   margin: 0;
+  background: none;
+  -webkit-text-fill-color: var(--text-primary);
 }
 
 .badge {
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 600;
+  border: 1px solid transparent;
 }
 
 .badge.success {
-  background: rgba(16, 185, 129, 0.1);
+  background: rgba(16, 185, 129, 0.12);
   color: var(--accent-success);
+  border-color: rgba(16, 185, 129, 0.2);
 }
 
 .badge.danger {
-  background: rgba(239, 68, 68, 0.1);
+  background: rgba(239, 68, 68, 0.12);
   color: var(--accent-danger);
+  border-color: rgba(239, 68, 68, 0.2);
 }
+
+.stat-detail-card p strong { color: var(--text-primary); }
 
 .heatmap-grid {
   display: grid;
@@ -49,15 +51,16 @@
 .heatmap-cell {
   aspect-ratio: 1;
   border-radius: 4px;
-  transition: var(--transition);
+  transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .heatmap-cell:hover {
-  transform: scale(1.2);
+  transform: scale(1.4);
+  z-index: 5;
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
 }
 
 @media (max-width: 768px) {
-  .heatmap-grid {
-    grid-template-columns: repeat(6, 1fr);
-  }
+  .heatmap-grid { grid-template-columns: repeat(6, 1fr); }
 }

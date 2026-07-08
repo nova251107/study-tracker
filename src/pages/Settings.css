@@ -13,6 +13,8 @@
 
 .settings-section h2 {
   margin: 0;
+  background: none;
+  -webkit-text-fill-color: var(--text-primary);
 }
 
 .settings-desc {
@@ -26,13 +28,9 @@
   flex-wrap: wrap;
 }
 
-.danger-zone {
-  border-color: rgba(239, 68, 68, 0.2);
-}
+.danger-zone { border-color: rgba(239, 68, 68, 0.2); }
 
-.danger-zone h2 {
-  color: var(--accent-danger);
-}
+.danger-zone h2 { color: var(--accent-danger); }
 
 .btn-danger {
   display: inline-flex;
@@ -48,5 +46,10 @@
 }
 
 .btn-danger:hover {
-  background: rgba(239, 68, 68, 0.2);
+  background: linear-gradient(135deg, var(--accent-danger), #dc2626);
+  color: white;
+  box-shadow: 0 2px 10px rgba(239, 68, 68, 0.3);
+  transform: translateY(-1px);
 }
+
+.btn-danger:active { transform: translateY(0); }
